@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block content %}
+
+ <h2>{{ restaurant.name }} Menu</h2>
+  <table class="table table-bordered">
+    <thead>
+      {% if not session.username %}
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+        </tr>
+      {% else %}
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th></th>
+            <th></th>
+        </tr>
+      {% endif %}
+    </thead>
+    <tbody>
+	{% for item in items %}
+    {% if not session.username %}
+      <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.price }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.description }}</td>
+        <td>{{ item.price }}</td>
+        <td><a href="{{url_for('editMenu', restaurant_id = restaurant.id, menu_id = item.id)}}"><button type="submit" class="btn btn-success">Edit</button> </a></td>
+        <td><a href="{{url_for('deleteMenu', restaurant_id = restaurant.id, menu_id = item.id)}}"><button type="submit" class="btn btn-danger">Delete</button> </a></td>
+      </tr>
+       {% endif %}
+  	{% endfor %}
+    </tbody>
+  </table>
+
+
+{% endblock content %}

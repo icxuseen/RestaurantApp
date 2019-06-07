@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="row">
+  <div class="col-md-6">
+  <div class="content-section">
+    <h3>Restaurants</h3>
+       <table class="table">
+    <thead>
+
+      {% if not session.username %}
+        <tr>
+          <td>
+            Name
+          </td>
+        </tr>
+        {% else %}
+          <tr>
+            <th>Name</th>
+            <th></th>
+            <th></th>
+          </tr>
+      {% endif %}
+    </thead>
+    <tbody>
+    {% for restaurant in restaurants %}
+      {% if not session.username %}
+        <tr>
+          <td><a href="{{url_for('showMenuItem', restaurant_id = restaurant.id)}}"> {{ restaurant.name }} </a></td>
+        </tr>
+        {% else %}
+        <tr>
+          <td><a href="{{url_for('showMenuItem', restaurant_id = restaurant.id)}}"> {{ restaurant.name }} </a></td>
+          <td><a href="{{url_for('editRestaurant', restaurant_id = restaurant.id)}}"><button type="submit" class="btn btn-success">Edit</button> </a></td>
+          <td><a href="{{url_for('deleteRestaurant', restaurant_id = restaurant.id)}}"><button type="submit" class="btn btn-danger">Delete</button> </a></td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+
+    <div class="col-md-5">
+      <div class="content-section">
+        <h3>{{ specific_res_name.name }} items ({{ countitem }})</h3>
+          <ul class="list-group">
+            {% for item in items %}
+              <li class="list-group-item list-group-item-light"><a href="{{url_for('showSpecificMenuItem', restaurant_name = item.restaurant.name, menu_name = item.name)}}"> {{ item.name }} </a></li>
+            {% endfor %}
+          </ul>
+      </div>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}

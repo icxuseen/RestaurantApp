@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Create New Menu</h1>
+    <form action="" method="POST">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <select class="form-control" name="menu_restaurant_id">
+        <option value="" selected="selected">Select Restaurant</option>
+      {% for restaurant in allrestaurant %}
+        <option value="{{ restaurant.id }}">{{ restaurant.name }}</option>
+      {% endfor %}
+  </select>
+  </div>
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" class="form-control" name="menu_name" placeholder="Name..." required="required">
+  </div>
+  <div class="form-group">
+    <label for="name">Description:</label>
+    <input type="text" class="form-control" name="menu_description" placeholder="Description..." required="required">
+  </div>
+  <div class="form-group">
+    <label for="name">Price:</label>
+    <input type="text" class="form-control" name="menu_price" placeholder="$10" required="required">
+  </div>
+  <button type="submit" class="btn btn-success">Create</button>
+</form>
+{% endblock content %}
